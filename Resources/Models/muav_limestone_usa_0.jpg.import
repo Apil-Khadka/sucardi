@@ -1,0 +1,39 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://0crmcjq1tdlv"
+path.s3tc="res://.godot/imported/muav_limestone_usa_0.jpg-bf5b5c69a18f88f137c064321e7f1e67.s3tc.ctex"
+path.etc2="res://.godot/imported/muav_limestone_usa_0.jpg-bf5b5c69a18f88f137c064321e7f1e67.etc2.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "779b63c37ca932a7baa0b6613cea1bae"
+}
+
+[deps]
+
+source_file="res://Resources/Models/muav_limestone_usa_0.jpg"
+dest_files=["res://.godot/imported/muav_limestone_usa_0.jpg-bf5b5c69a18f88f137c064321e7f1e67.s3tc.ctex", "res://.godot/imported/muav_limestone_usa_0.jpg-bf5b5c69a18f88f137c064321e7f1e67.etc2.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

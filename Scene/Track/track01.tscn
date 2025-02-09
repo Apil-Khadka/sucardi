@@ -1,0 +1,137 @@
+[gd_scene load_steps=14 format=3 uid="uid://dynikglcr51lu"]
+
+[ext_resource type="MTerrainMaterial" uid="uid://dohg8xfhrdws0" path="res://Scene/material/track01.tres" id="1_dkrfj"]
+[ext_resource type="Script" uid="uid://by0pmq43jr2uv" path="res://Scene/Track/track_01.gd" id="1_o3kc3"]
+[ext_resource type="Script" uid="uid://elwrpl87s4l" path="res://Scene/Track/m_terrain.gd" id="2_oi7lb"]
+[ext_resource type="MCurve" uid="uid://sb4m8qbnihie" path="res://Scene/curves/track01.res" id="3_w4vam"]
+[ext_resource type="PackedScene" uid="uid://ci52bv1m15cbs" path="res://Resources/cars/Doge.tscn" id="4_luwdc"]
+[ext_resource type="PackedScene" uid="uid://4a6oabvcb403" path="res://Resources/Models/muav_limestone_usa.glb" id="5_xgjlt"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w4vam"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+energy_multiplier = 0.7
+
+[sub_resource type="Sky" id="Sky_luwdc"]
+sky_material = SubResource("ProceduralSkyMaterial_w4vam")
+
+[sub_resource type="Environment" id="Environment_xgjlt"]
+background_mode = 2
+sky = SubResource("Sky_luwdc")
+tonemap_mode = 2
+ssao_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
+
+[sub_resource type="MBrushLayers" id="MBrushLayers_dkrfj"]
+layers_title = "road"
+uniform_name = "road"
+layers = [{
+"ICON": "",
+"NAME": "background",
+&"color": Color(0, 0, 0, 1),
+&"hardness": 0.9
+}]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xgjlt"]
+noise_type = 0
+frequency = 0.0001
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_o3kc3"]
+noise = SubResource("FastNoiseLite_xgjlt")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ef81c"]
+noise = SubResource("FastNoiseLite_xgjlt")
+
+[node name="Track01" type="Node3D"]
+script = ExtResource("1_o3kc3")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_xgjlt")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.22325, 0.425777, -0.876854, 0, 0.899558, 0.436802, 0.974761, 0.0975159, -0.200826, 0, 0, 0)
+light_energy = 0.7
+shadow_enabled = true
+directional_shadow_max_distance = 571.0
+
+[node name="MTerrain" type="MTerrain" parent="."]
+dataDir = "res://Resources/WorldMap"
+layersDataDir = "res://Resources/WorldMap/layers"
+terrain_material = ExtResource("1_dkrfj")
+heightmap_layers = PackedStringArray("background", "road")
+terrain_quad_count = Vector2i(32, 32)
+brush_layers = [SubResource("MBrushLayers_dkrfj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 389.13, -318.435, -433.885)
+script = ExtResource("2_oi7lb")
+
+[node name="MPath" type="MPath" parent="."]
+curve = ExtResource("3_w4vam")
+metadata/curve_terrain = {
+"auto_deform": false,
+"auto_grass": false,
+"auto_paint": false,
+"bgcolor": Color(0, 0, 0, 1),
+"dfalloff": 3.0,
+"doffset": 0.2,
+"donly_selected": false,
+"dradius": 5.0,
+"iname": "road",
+"panel_open": true,
+"pcolor": Color(1, 1, 1, 1),
+"pfalloff": 3.0,
+"ponly_selected": false,
+"pradius": 5.0,
+"scale": true,
+"tilt": false,
+"tlayer": "road"
+}
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("5_xgjlt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 555.537, 25.5348, 604.152)
+
+[node name="car" parent="." instance=ExtResource("4_luwdc")]
+transform = Transform3D(-0.989404, 0, 0.145185, 0, 1, 0, -0.145185, 0, -0.989404, 526.324, 24.2812, 527.681)
+STEER_LIMIT = 0.6
+engine_force_value = 40
+
+[node name="up" type="TouchScreenButton" parent="."]
+position = Vector2(68, 431)
+scale = Vector2(0.0878906, 0.0917968)
+texture_normal = SubResource("NoiseTexture2D_o3kc3")
+visibility_mode = 1
+
+[node name="down" type="TouchScreenButton" parent="."]
+position = Vector2(68, 524)
+scale = Vector2(0.0878906, 0.0917968)
+texture_normal = SubResource("NoiseTexture2D_o3kc3")
+visibility_mode = 1
+
+[node name="left" type="TouchScreenButton" parent="."]
+position = Vector2(828, 476)
+scale = Vector2(0.0878906, 0.0917968)
+texture_normal = SubResource("NoiseTexture2D_ef81c")
+visibility_mode = 1
+
+[node name="right" type="TouchScreenButton" parent="."]
+position = Vector2(946, 474)
+scale = Vector2(0.0878906, 0.0917968)
+texture_normal = SubResource("NoiseTexture2D_o3kc3")
+visibility_mode = 1
+
+[node name="brake" type="TouchScreenButton" parent="."]
+position = Vector2(878, 558)
+scale = Vector2(0.0878906, 0.0917968)
+texture_normal = SubResource("NoiseTexture2D_o3kc3")
+visibility_mode = 1
+
+[connection signal="pressed" from="up" to="." method="_on_up_pressed"]
+[connection signal="released" from="up" to="." method="_on_up_released"]
+[connection signal="pressed" from="down" to="." method="_on_down_pressed"]
+[connection signal="released" from="down" to="." method="_on_down_released"]
+[connection signal="pressed" from="left" to="." method="_on_left_pressed"]
+[connection signal="released" from="left" to="." method="_on_left_released"]
+[connection signal="pressed" from="right" to="." method="_on_right_pressed"]
+[connection signal="released" from="right" to="." method="_on_right_released"]
+[connection signal="pressed" from="brake" to="." method="_on_brake_pressed"]
+[connection signal="released" from="brake" to="." method="_on_brake_released"]
