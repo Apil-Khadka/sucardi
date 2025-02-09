@@ -7,21 +7,17 @@
 [ext_resource type="PackedScene" uid="uid://ci52bv1m15cbs" path="res://Resources/cars/Doge.tscn" id="4_luwdc"]
 [ext_resource type="PackedScene" uid="uid://4a6oabvcb403" path="res://Resources/Models/muav_limestone_usa.glb" id="5_xgjlt"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w4vam"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o3kc3"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
 ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
 energy_multiplier = 0.7
 
-[sub_resource type="Sky" id="Sky_luwdc"]
-sky_material = SubResource("ProceduralSkyMaterial_w4vam")
+[sub_resource type="Sky" id="Sky_ef81c"]
+sky_material = SubResource("ProceduralSkyMaterial_o3kc3")
 
-[sub_resource type="Environment" id="Environment_xgjlt"]
+[sub_resource type="Environment" id="Environment_m3bn2"]
 background_mode = 2
-sky = SubResource("Sky_luwdc")
-tonemap_mode = 2
-ssao_enabled = true
-sdfgi_enabled = true
-glow_enabled = true
+sky = SubResource("Sky_ef81c")
 
 [sub_resource type="MBrushLayers" id="MBrushLayers_dkrfj"]
 layers_title = "road"
@@ -47,10 +43,10 @@ noise = SubResource("FastNoiseLite_xgjlt")
 script = ExtResource("1_o3kc3")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_xgjlt")
+environment = SubResource("Environment_m3bn2")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.22325, 0.425777, -0.876854, 0, 0.899558, 0.436802, 0.974761, 0.0975159, -0.200826, 0, 0, 0)
+transform = Transform3D(-0.866025, -0.218401, 0.449779, 0, 0.899558, 0.436802, -0.5, 0.378281, -0.77904, 0, 0, 0)
 light_energy = 0.7
 shadow_enabled = true
 directional_shadow_max_distance = 571.0
