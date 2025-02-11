@@ -1,0 +1,41 @@
+[gd_scene load_steps=9 format=3 uid="uid://u832wcqsbrag"]
+
+[ext_resource type="AudioStream" uid="uid://biquv1gtjbs7r" path="res://Resources/Sound/Tyre/offroad.ogg" id="1_2fvpg"]
+[ext_resource type="Script" uid="uid://bnkrh5ykn7wo7" path="res://Scene/Sound/Tyre/sound.gd" id="1_ej2qa"]
+[ext_resource type="AudioStream" uid="uid://cqw8c3wol44a3" path="res://Resources/Sound/Tyre/peel0.ogg" id="2_ej2qa"]
+[ext_resource type="AudioStream" uid="uid://cdja32vammoti" path="res://Resources/Sound/Tyre/peel1.ogg" id="3_koktm"]
+[ext_resource type="AudioStream" uid="uid://waw1h3bylixk" path="res://Resources/Sound/Tyre/peel2.ogg" id="4_pnkgw"]
+[ext_resource type="AudioStream" uid="uid://deop753ws8fp6" path="res://Resources/Sound/Tyre/roll0.ogg" id="5_7sjwb"]
+[ext_resource type="AudioStream" uid="uid://d1t4nuolneuva" path="res://Resources/Sound/Tyre/roll1.ogg" id="6_yf48h"]
+[ext_resource type="AudioStream" uid="uid://3rvrbxwrcyo7" path="res://Resources/Sound/Tyre/roll2.ogg" id="7_48bbe"]
+
+[node name="TyreSound" type="Node3D"]
+script = ExtResource("1_ej2qa")
+
+[node name="offroad" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("1_2fvpg")
+bus = &"CarTyre"
+
+[node name="peel 0" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_ej2qa")
+bus = &"CarTyre"
+
+[node name="peel 1" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_koktm")
+bus = &"CarTyre"
+
+[node name="peel 2" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_pnkgw")
+bus = &"CarTyre"
+
+[node name="roll 0" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_7sjwb")
+bus = &"CarTyre"
+
+[node name="roll 1" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_yf48h")
+bus = &"CarTyre"
+
+[node name="roll 2" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_48bbe")
+bus = &"CarTyre"
