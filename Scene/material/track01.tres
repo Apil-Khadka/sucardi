@@ -1,18 +1,17 @@
-[gd_resource type="MTerrainMaterial" load_steps=6 format=3 uid="uid://dohg8xfhrdws0"]
+[gd_resource type="MTerrainMaterial" load_steps=5 format=3 uid="uid://dohg8xfhrdws0"]
 
-[ext_resource type="Texture2D" uid="uid://opq4p51m2762" path="res://Resources/textures/Grass_pcciV0_4K_BaseColor.jpg" id="1_ojwt6"]
-[ext_resource type="Texture2D" uid="uid://b8hvalhb7ajdu" path="res://Resources/textures/Rough_Road_rmtksyp0_4K_BaseColor.jpg" id="2_u58ci"]
+[ext_resource type="Texture2D" uid="uid://04m4jb8x6oq0" path="res://Resources/textures/Asphalt_Road_rltxjip0_4K_BaseColor.jpg" id="1_u58ci"]
+[ext_resource type="Texture2D" uid="uid://clx4lji8rhpbj" path="res://Resources/textures/Lush_Grass_xbrffjd_4K_BaseColor.jpg" id="2_ojwt6"]
 [ext_resource type="Texture2D" uid="uid://b0htueiofrr4h" path="res://Resources/textures/Rough_Rock_rmtlitp0_4K_BaseColor.jpg" id="3_5udke"]
 [ext_resource type="Shader" uid="uid://b6bmn3x31io2k" path="res://Scene/Shaders/track01.gdshader" id="4_6vuja"]
-[ext_resource type="Texture2D" uid="uid://dminmtwm5wvi1" path="res://Resources/textures/Ground_Pavement_tgluefvaw_8K_BaseColor.jpg" id="4_u58ci"]
 
 [resource]
 shader = ExtResource("4_6vuja")
 _uniforms = {
 -1: {
-&"road_texture": ExtResource("4_u58ci"),
-&"texture1": ExtResource("1_ojwt6"),
+&"road_texture": ExtResource("1_u58ci"),
+&"texture1": ExtResource("2_ojwt6"),
 &"texture2": ExtResource("3_5udke"),
-&"texture3": ExtResource("2_u58ci")
+&"texture3": ExtResource("2_ojwt6")
 }
 }

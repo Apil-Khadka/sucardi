@@ -41,7 +41,7 @@ void vertex() {
     // Sample road mask (grayscale, assumed to be in the red channel)
     road_mask = texture(mterrain_road, region_uv).r;
     // Height-based blending factor
-    blend_factor = smoothstep(0.2, 0.5, nxz); // Adjust for transition
+    blend_factor = smoothstep(0.9, 0.6, 0.87-nxz); // Adjust for transition
 
     world_pos /= 2.0;
     NORMAL = n;
@@ -57,7 +57,7 @@ void fragment() {
     vec3 tex1 = texture(texture1, uv1).rgb; // Flat ground
     vec3 tex2 = texture(texture2, uv2).rgb; // Steep slopes
     vec3 tex3 = texture(texture3, uv1).rgb; // Blended terrain
-    vec3 road_tex = texture(road_texture, world_pos.xz * 0.5).rgb; // Road
+    vec3 road_tex = texture(road_texture, world_pos.xz * 0.06).rgb; // Road
 
 
     // Mix ground textures based on height

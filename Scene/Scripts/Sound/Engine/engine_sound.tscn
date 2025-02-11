@@ -1,0 +1,36 @@
+[gd_scene load_steps=9 format=3 uid="uid://by3n7h64aiykk"]
+
+[ext_resource type="AudioStream" uid="uid://hk357uig7fqk" path="res://Resources/Sound/Engine/1.ogg" id="1_luh4o"]
+[ext_resource type="AudioStream" uid="uid://b5mhv4a0jivxl" path="res://Resources/Sound/Engine/2.ogg" id="2_10bb6"]
+[ext_resource type="AudioStream" uid="uid://dwe5s4b6028kg" path="res://Resources/Sound/Engine/3.ogg" id="3_kyg4g"]
+[ext_resource type="AudioStream" uid="uid://6yeay668ma5o" path="res://Resources/Sound/Engine/4.ogg" id="4_e55vi"]
+[ext_resource type="AudioStream" uid="uid://bwohpm8vlw4o1" path="res://Resources/Sound/Engine/5.ogg" id="5_ctidg"]
+[ext_resource type="AudioStream" uid="uid://bcv2fcq0l2o3m" path="res://Resources/Sound/Engine/6.ogg" id="6_k7hse"]
+[ext_resource type="AudioStream" uid="uid://1qx0enkyajvj" path="res://Resources/Sound/Engine/7.ogg" id="7_7mrbv"]
+[ext_resource type="AudioStream" uid="uid://di6476wooph5g" path="res://Resources/Sound/Engine/8.ogg" id="8_rxp50"]
+
+[node name="EngineSound" type="Node3D"]
+
+[node name="Audio 1" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("1_luh4o")
+
+[node name="Audio 2" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_10bb6")
+
+[node name="Audio 3" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_kyg4g")
+
+[node name="Audio 4" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_e55vi")
+
+[node name="Audio 5" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_ctidg")
+
+[node name="Audio 6" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_k7hse")
+
+[node name="Audio 7" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_7mrbv")
+
+[node name="Audio 8" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("8_rxp50")

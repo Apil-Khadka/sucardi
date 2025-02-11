@@ -1,3 +1,14 @@
 [remap]
 
-importer="keep"
+importer="image"
+type="Image"
+uid="uid://gs6u5s08vm68"
+path="res://.godot/imported/01.exr-ab0b7c047a1a80a3dffee1ffa95accaf.image"
+
+[deps]
+
+source_file="res://addons/m_terrain/brush_masks/01.exr"
+dest_files=["res://.godot/imported/01.exr-ab0b7c047a1a80a3dffee1ffa95accaf.image"]
+
+[params]
+
