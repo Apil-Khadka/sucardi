@@ -81,5 +81,5 @@ metadata/curve_terrain = {
 
 [node name="car" parent="." instance=ExtResource("4_luwdc")]
 transform = Transform3D(-0.989404, 0, 0.145185, 0, 1, 0, -0.145185, 0, -0.989404, 533.701, 23.8713, 527.681)
-STEER_LIMIT = 0.6
-engine_force_value = 40
+STEER_LIMIT = 0.8
+engine_force_value = 150
