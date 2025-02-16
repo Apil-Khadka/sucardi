@@ -2,11 +2,11 @@
 
 [sub_resource type="AudioEffectAmplify" id="AudioEffectAmplify_j3pel"]
 resource_name = "Amplify"
-volume_db = 5.73
+volume_db = 11.5
 
 [sub_resource type="AudioEffectPitchShift" id="AudioEffectPitchShift_j3pel"]
 resource_name = "PitchShift"
-pitch_scale = 0.36
+pitch_scale = 0.17
 
 [resource]
 bus/1/name = &"CarEngine"
