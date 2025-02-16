@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://cmupqqq33q5oi"]
+[gd_resource type="AudioBusLayout" load_steps=5 format=3 uid="uid://cmupqqq33q5oi"]
 
 [sub_resource type="AudioEffectAmplify" id="AudioEffectAmplify_j3pel"]
 resource_name = "Amplify"
@@ -7,6 +7,14 @@ volume_db = 11.5
 [sub_resource type="AudioEffectPitchShift" id="AudioEffectPitchShift_j3pel"]
 resource_name = "PitchShift"
 pitch_scale = 0.17
+
+[sub_resource type="AudioEffectDistortion" id="AudioEffectDistortion_j3pel"]
+resource_name = "Distortion"
+pre_gain = -5.2
+
+[sub_resource type="AudioEffectAmplify" id="AudioEffectAmplify_g28q7"]
+resource_name = "Amplify"
+volume_db = -9.35
 
 [resource]
 bus/1/name = &"CarEngine"
@@ -25,3 +33,7 @@ bus/2/mute = false
 bus/2/bypass_fx = false
 bus/2/volume_db = 0.0
 bus/2/send = &"Master"
+bus/2/effect/0/effect = SubResource("AudioEffectDistortion_j3pel")
+bus/2/effect/0/enabled = false
+bus/2/effect/1/effect = SubResource("AudioEffectAmplify_g28q7")
+bus/2/effect/1/enabled = true

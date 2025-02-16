@@ -39,3 +39,6 @@ bus = &"CarTyre"
 [node name="roll 2" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("7_48bbe")
 bus = &"CarTyre"
+
+[connection signal="child_entered_tree" from="offroad" to="." method="_on_offroad_child_entered_tree"]
+[connection signal="child_exiting_tree" from="offroad" to="." method="_on_offroad_child_exiting_tree"]
