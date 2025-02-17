@@ -2,3 +2,4 @@
 * text=auto eol=lf
 Resources/Models/muav_limestone_usa.glb filter=lfs diff=lfs merge=lfs -text
 Resources/textures/Ground_Pavement_tgluefvaw_8K_BaseColor.jpg filter=lfs diff=lfs merge=lfs -text
+Resources/Sound/UI/ui_sound.ogg filter=lfs diff=lfs merge=lfs -text

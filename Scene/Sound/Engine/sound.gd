@@ -41,53 +41,59 @@ func stop() -> void:
 			child.stop()
 
 #–– update_engine_sound() ––
-func update_engine_sound(current_speed: float, rpm: float, gear: int) -> void:
-	# Normalize pitch based on RPM and calibration
-	pitch = clamp(rpm * pitch_influence / pitch_calibrate, 0.5, 3.0)
-
-	# Volume control based on speed, ensuring it never fully mutes
-	volume = clamp(current_speed / 300.0, 0.3, 1.0)
-
-	# Ensure gear stays within range (1 to 8)
+func update_engine_sound(current_speed: float, rpm: float, gear: int, throttle: float = 0.0) -> void:
+	# Use a minimum engine RPM (idle RPM). Even if rpm is lower, the engine should sound active.
+	var base_rpm: float = 800.0
+	var effective_rpm: float = max(rpm, base_rpm)
+	
+	# Compute pitch so that at idle (800 rpm) the pitch is near a base value (e.g. 1.0)
+	# and it scales up as rpm increases. Adjust pitch_influence and pitch_calibrate to taste.
+	# (For example, here pitch increases linearly from 1.0 at 800rpm.)
+	pitch = clamp(1.0 + (effective_rpm - base_rpm) * pitch_influence / (pitch_calibrate - base_rpm), 0.8, 3.0)
+	
+	# Determine volume.
+	# Normally volume is based on speed, but if you're stuck (very low speed) yet the throttle is pressed,
+	# we force a minimum volume so the engine sound shows that it's working.
+	if current_speed < 5.0 and throttle > 0.1:
+		volume = 0.6
+	else:
+		volume = clamp(current_speed / 300.0, 0.3, 1.0)
+	
+	# Gear-based sound blending.
+	# Ensure gear is at least 1 (or treat nonpositive gear as neutral).
 	gear = clamp(gear, 1, 8)
-
-	# Select primary and secondary audio indexes based on gear
-	var gear_idx = gear - 1
-	var next_gear_idx = min(gear, 7)  # Prevent going beyond the last index
-
-	# Interpolation factor between gears (how much we're transitioning)
-	var gear_blend = fposmod(gear, 1.0)  # Fractional part to blend between gears
-
-	# Iterate through audio children
+	var gear_idx: int = gear - 1
+	# For this example, the “next” gear sound is used for blending during a shift.
+	# (Since gear is an integer, gear_blend remains 0; you can later extend this logic for fractional gear changes.)
+	var next_gear_idx: int = min(gear, 7)
+	var gear_blend: float = 0.0
+	
+	# Iterate through the expected 8 engine sound children.
 	for i in range(8):
 		var child = get_child(i)
 		if child is AudioStreamPlayer3D:
-			# Check if this child is part of the gear selection
-			var is_primary = (i == gear_idx)
-			var is_secondary = (i == next_gear_idx)
-
-			# Determine volume contribution
+			# Determine how much this audio node should contribute.
 			var vol_factor: float = 0.0
-			if is_primary:
+			if i == gear_idx:
 				vol_factor = 1.0 - gear_blend
-			elif is_secondary:
+			elif i == next_gear_idx:
 				vol_factor = gear_blend
-
-			# Get base volume and pitch values
-			var base_vol: float = child.get_meta("base_volume") if child.has_meta("base_volume") else 100.0
-			var base_pitch: float = child.get_meta("base_pitch") if child.has_meta("base_pitch") else 100000.0
-
-			# Normalize volume and pitch
-			var maxvol: float = base_vol / 100.0
-			var maxpitch: float = base_pitch / 100000.0
-
-			# Apply final volume and pitch
-			child.volume_db = max(linear_to_db(vol_factor * maxvol * (volume * overall_volume)), -50.0)
+			else:
+				vol_factor = 0.0
+			
+			# Read base volume and pitch from metadata if set (you can use these to fine-tune each child).
+			var base_vol: float = child.get_meta("base_volume") if child.has_meta("base_volume") else 1.0
+			var base_pitch: float = child.get_meta("base_pitch") if child.has_meta("base_pitch") else 1.0
+			
+			# Calculate final volume (converted to decibels) and pitch.
+			# We multiply the vol_factor by the child’s base volume and our computed volume.
+			var final_vol: float = vol_factor * base_vol * (volume * overall_volume)
+			child.volume_db = max(linear_to_db(final_vol), -50.0)
 			child.set("max_db", child.volume_db)
-
-			# Smooth pitch scaling
-			var pit: float = clamp(pitch * maxpitch, 0.8, 2.5)
-			child.pitch_scale = lerp(child.pitch_scale, pit, 0.2)  # Smooth transition
-
-			# Enable or disable sound based on its relevance to the current gear
-			child.playing = vol_factor > 0.01  # Only play if volume factor is significant
+			
+			# Adjust pitch based on our computed pitch and the child’s base pitch.
+			var target_pitch: float = clamp(pitch * base_pitch, 0.8, 3.0)
+			child.pitch_scale = lerp(child.pitch_scale, target_pitch, 0.2)
+			
+			# Finally, only play this child if its volume contribution is significant.
+			child.playing = vol_factor > 0.01

@@ -61,11 +61,3 @@ func _stop_sounds(sounds: Array) -> void:
 			sound.stop()
 
 # Stub function: replace with your own offroad logic if needed.
-
-
-func _on_offroad_child_exiting_tree(node: Node) -> void:
-	is_offroad = true
-
-
-func _on_offroad_child_entered_tree(node: Node) -> void:
-	is_offroad = false
