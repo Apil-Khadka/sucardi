@@ -1,0 +1,9 @@
+[gd_resource type="MMeshLod" load_steps=4 format=3 uid="uid://ka50fy5q8t6b"]
+
+[ext_resource type="ArrayMesh" uid="uid://d2g0hetftxp77" path="res://Resources/Models/Rock/Resource/stone_b_0_small.res" id="1_2fco3"]
+[ext_resource type="ArrayMesh" uid="uid://c185mwjjpipw8" path="res://Resources/Models/Rock/Resource/stone_b_1_small.res" id="2_eqb0n"]
+[ext_resource type="ArrayMesh" uid="uid://dvii2gl0ft8" path="res://Resources/Models/Rock/Resource/stone_b_2_small.res" id="3_kf2de"]
+
+[resource]
+meshes = Array[Mesh]([ExtResource("1_2fco3"), ExtResource("2_eqb0n"), ExtResource("3_kf2de")])
+lod_count = 3

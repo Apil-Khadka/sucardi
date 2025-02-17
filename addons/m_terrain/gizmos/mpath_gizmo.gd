@@ -430,10 +430,10 @@ func _commit_handle(gizmo, handle_id, secondary, restore, cancel):
 				var s:Dictionary = grass_modify_settings[gname]
 				var r:float = s["radius"] ; var o = s["offset"]
 				if not s["active"] : continue
-				if not curve_terrain.terrain.has_node(gname):
+				if not curve_terrain.terrain.has_node(NodePath(gname)):
 					printerr("can not find grass "+gname+" please reselect MPath node to update grass names")
 					continue
-				var g = curve_terrain.terrain.get_node(gname)
+				var g = curve_terrain.terrain.get_node(NodePath(gname))
 				if not(g is MGrass):
 					printerr(gname+" is not a grass node! please reselect MPath node to update grass names")
 					continue
@@ -1078,10 +1078,10 @@ func modify_grass(only_selected:bool):
 	for gname in g_names:
 		var setting:Dictionary = grass_modify_settings[gname]
 		if not setting["active"] : return
-		if not curve_terrain.terrain.has_node(gname):
+		if not curve_terrain.terrain.has_node(NodePath(gname)):
 			printerr("can not find grass "+gname+" please reselect MPath node to update grass names")
 			continue
-		var g = curve_terrain.terrain.get_node(gname)
+		var g = curve_terrain.terrain.get_node(NodePath(gname))
 		if not(g is MGrass):
 			printerr(gname+" is not a grass node! please reselect MPath node to update grass names")
 			continue
@@ -1096,10 +1096,10 @@ func clear_grass(only_selected:bool):
 	for gname in g_names:
 		var setting:Dictionary = grass_modify_settings[gname]
 		if not setting["active"] : return
-		if not curve_terrain.terrain.has_node(gname):
+		if not curve_terrain.terrain.has_node(NodePath(gname)):
 			printerr("can not find grass "+gname+" please reselect MPath node to update grass names")
 			continue
-		var g = curve_terrain.terrain.get_node(gname)
+		var g = curve_terrain.terrain.get_node(NodePath(gname))
 		if not(g is MGrass):
 			printerr(gname+" is not a grass node! please reselect MPath node to update grass names")
 			continue
@@ -1115,10 +1115,10 @@ func clear_grass_large(only_selected:bool):
 	for gname in g_names:
 		var setting:Dictionary = grass_modify_settings[gname]
 		if not setting["active"] : return
-		if not curve_terrain.terrain.has_node(gname):
+		if not curve_terrain.terrain.has_node(NodePath(gname)):
 			printerr("can not find grass "+gname+" please reselect MPath node to update grass names")
 			continue
-		var g = curve_terrain.terrain.get_node(gname)
+		var g = curve_terrain.terrain.get_node(NodePath(gname))
 		if not(g is MGrass):
 			printerr(gname+" is not a grass node! please reselect MPath node to update grass names")
 			continue
@@ -1139,10 +1139,10 @@ func curve_terrain_modify(conns:PackedInt64Array,_terrain:bool,_paint:bool,_gras
 				var s:Dictionary = _gsettings[gname]
 				var r:float = s["radius"] ; var o = s["offset"]
 				if not s["active"] : continue
-				if not curve_terrain.terrain.has_node(gname):
+				if not curve_terrain.terrain.has_node(NodePath(gname)):
 					printerr("can not find grass "+gname+" please reselect MPath node to update grass names")
 					continue
-				var g = curve_terrain.terrain.get_node(gname)
+				var g = curve_terrain.terrain.get_node(NodePath(gname))
 				if not(g is MGrass):
 					printerr(gname+" is not a grass node! please reselect MPath node to update grass names")
 					continue
@@ -1175,20 +1175,3 @@ func curve_terrain_clear(conns:PackedInt64Array,_terrain:bool,_paint:bool,_grass
 				g.update_dirty_chunks()
 		curve_terrain.terrain.update_all_dirty_image_texture(false)
 		curve_terrain.terrain.save_all_dirty_images()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

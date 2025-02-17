@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://ci52bv1m15cbs"]
+[gd_scene load_steps=11 format=3 uid="uid://ci52bv1m15cbs"]
 
 [ext_resource type="PackedScene" uid="uid://duy0dbkychify" path="res://Resources/cars/BaseCar.tscn" id="1_cfkas"]
 [ext_resource type="PackedScene" uid="uid://benmjny2guowm" path="res://Resources/cars/Models/Doge/Wheel.glb" id="2_eoiid"]
 [ext_resource type="PackedScene" uid="uid://bty2rpvw2dh0h" path="res://Resources/cars/Models/Doge/doge-body.glb" id="3_om8jj"]
 [ext_resource type="PackedScene" uid="uid://by3n7h64aiykk" path="res://Scene/Sound/Engine/engine_sound.tscn" id="4_vipri"]
 [ext_resource type="PackedScene" uid="uid://u832wcqsbrag" path="res://Scene/Sound/Tyre/tyre_sound.tscn" id="5_coxw7"]
+[ext_resource type="Material" uid="uid://xfw8twekldbc" path="res://Resources/cars/break_light_material.res" id="6_coxw7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n7qdn"]
 radius = 0.291194
@@ -14,6 +15,8 @@ size = Vector3(0.542114, 1.7092, 1.53265)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7kmqy"]
 radius = 0.363529
+
+[sub_resource type="BoxMesh" id="BoxMesh_coxw7"]
 
 [node name="car" instance=ExtResource("1_cfkas")]
 mass = 150.0
@@ -102,3 +105,35 @@ shape = SubResource("CapsuleShape3D_7kmqy")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.720523, -1.22122)
 
 [node name="TyreSound" parent="." index="12" instance=ExtResource("5_coxw7")]
+
+[node name="breaklight" type="SpotLight3D" parent="." index="13"]
+transform = Transform3D(-1, 0, 0, 0, 0.999992, 0.00399675, 0, 0.00399675, -0.999992, -0.541051, 0.733266, 2.37998)
+visible = false
+light_color = Color(0.988235, 0, 0, 1)
+light_energy = 2.618
+light_indirect_energy = 1.024
+light_volumetric_fog_energy = 0.896
+spot_range = 4.593
+spot_attenuation = 2.07
+spot_angle = 60.52
+
+[node name="breaklight2" type="SpotLight3D" parent="." index="14"]
+transform = Transform3D(-1, 0, 0, 0, 0.999992, 0.00399675, 0, 0.00399675, -0.999992, 0.56586, 0.733266, 2.37998)
+visible = false
+light_color = Color(0.988235, 0, 0, 1)
+light_energy = 2.618
+light_indirect_energy = 1.024
+light_volumetric_fog_energy = 0.896
+spot_range = 4.593
+spot_attenuation = 2.07
+spot_angle = 60.52
+
+[node name="breaklight_emm" type="MeshInstance3D" parent="." index="15"]
+transform = Transform3D(0.133289, 0, 0, 0, -0.0218552, 0.0785425, 0, -0.0747487, -0.0229644, -0.568878, 0.697213, 2.28543)
+mesh = SubResource("BoxMesh_coxw7")
+surface_material_override/0 = ExtResource("6_coxw7")
+
+[node name="breaklight_emm2" type="MeshInstance3D" parent="." index="16"]
+transform = Transform3D(0.133289, 0, 0, 0, -0.0218552, 0.0785425, 0, -0.0747487, -0.0229644, 0.561255, 0.697213, 2.28543)
+mesh = SubResource("BoxMesh_coxw7")
+surface_material_override/0 = ExtResource("6_coxw7")

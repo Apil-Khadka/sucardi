@@ -1,0 +1,9 @@
+[gd_resource type="MGrassLodSetting" format=3 uid="uid://bp544d1s3eqqg"]
+
+[resource]
+offset = Vector3(0, 0.01, 0)
+rand_rot_end = Vector3(24, 360, 24)
+uniform_rand_scale_start = 5.0
+uniform_rand_scale_end = 10.0
+rand_scale_start = Vector3(3, 3, 3)
+rand_scale_end = Vector3(5, 5, 5)

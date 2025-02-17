@@ -1,11 +1,23 @@
-[gd_scene load_steps=11 format=3 uid="uid://dynikglcr51lu"]
+[gd_scene load_steps=25 format=3 uid="uid://dynikglcr51lu"]
 
 [ext_resource type="MTerrainMaterial" uid="uid://dohg8xfhrdws0" path="res://Scene/material/track01.tres" id="1_dkrfj"]
 [ext_resource type="Script" uid="uid://by0pmq43jr2uv" path="res://Scene/Track/track_01.gd" id="1_o3kc3"]
 [ext_resource type="Script" uid="uid://elwrpl87s4l" path="res://Scene/Track/m_terrain.gd" id="2_oi7lb"]
 [ext_resource type="MCurve" uid="uid://sb4m8qbnihie" path="res://Scene/curves/track01.res" id="3_w4vam"]
+[ext_resource type="MGrassData" uid="uid://dp76d17j4xer1" path="res://Scene/Track/track01_big_rock_data.res" id="4_ixu15"]
 [ext_resource type="PackedScene" uid="uid://ci52bv1m15cbs" path="res://Resources/cars/Doge.tscn" id="4_luwdc"]
-[ext_resource type="MGrassData" uid="uid://d1gmjojnkain7" path="res://Scene/Objects/Track01/first_grass_data.res" id="4_o3kc3"]
+[ext_resource type="Shape3D" uid="uid://c7q6q8j1i3aev" path="res://Resources/Models/Rock/Shape/Big_rock.tres" id="4_m3bn2"]
+[ext_resource type="MGrassLodSetting" uid="uid://bby4ix4x2k4c6" path="res://Resources/Models/Rock/Load Setting/big_rock_lod_setting.tres" id="5_ixu15"]
+[ext_resource type="MMeshLod" uid="uid://bduh1jhkkbpf3" path="res://Resources/Models/Rock/Load Setting/rock_big_mesh.tres" id="6_cs5l2"]
+[ext_resource type="MGrassLodSetting" uid="uid://dql2vmlsai7ow" path="res://Resources/Models/Grass/Load Setting/small_grass_lod_setting.tres" id="8_0hkpf"]
+[ext_resource type="MGrassData" uid="uid://c7qdu63usel7s" path="res://Scene/Track/track01_grass.res" id="8_qmdyh"]
+[ext_resource type="ArrayMesh" uid="uid://b50pvoxoxdt25" path="res://Resources/Models/Grass/Resource/grass_0.res" id="9_qmdyh"]
+[ext_resource type="ArrayMesh" uid="uid://7njsdmfr7orh" path="res://Resources/Models/Grass/Resource/grass_1.res" id="10_x76p2"]
+[ext_resource type="ArrayMesh" uid="uid://drog32rdjkvcx" path="res://Resources/Models/Grass/Resource/grass_2.res" id="11_spe16"]
+[ext_resource type="MGrassData" uid="uid://cjydg6plf2vu0" path="res://Scene/Track/track01_tree.res" id="13_eau7m"]
+[ext_resource type="Shape3D" uid="uid://b43t56ocvya6g" path="res://Resources/Models/Tree/shape/tree_a_cylinder.res" id="14_uu6w2"]
+[ext_resource type="MGrassLodSetting" uid="uid://1ahrx0jcnm8j" path="res://Resources/Models/Tree/Load Setting/birch_tree_0_load.res" id="15_kfdb0"]
+[ext_resource type="MMeshLod" uid="uid://cxitq4dmfwo2h" path="res://Resources/Models/Tree/Load Setting/birch_tree_mesh_lod.tres" id="16_iedwy"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o3kc3"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -18,6 +30,9 @@ sky_material = SubResource("ProceduralSkyMaterial_o3kc3")
 [sub_resource type="Environment" id="Environment_m3bn2"]
 background_mode = 2
 sky = SubResource("Sky_ef81c")
+glow_enabled = true
+glow_strength = 1.21
+volumetric_fog_density = 0.0
 
 [sub_resource type="MBrushLayers" id="MBrushLayers_dkrfj"]
 layers_title = "road"
@@ -28,6 +43,16 @@ layers = [{
 &"color": Color(0, 0, 0, 1),
 &"hardness": 0.9
 }]
+
+[sub_resource type="MGrassLodSetting" id="MGrassLodSetting_cs5l2"]
+uniform_rand_scale_start = 4.0
+uniform_rand_scale_end = 6.0
+rand_scale_start = Vector3(4, 4, 4)
+rand_scale_end = Vector3(6, 6, 6)
+
+[sub_resource type="MMeshLod" id="MMeshLod_eau7m"]
+meshes = Array[Mesh]([ExtResource("9_qmdyh"), ExtResource("10_x76p2"), ExtResource("11_spe16")])
+lod_count = 3
 
 [node name="Track01" type="Node3D"]
 script = ExtResource("1_o3kc3")
@@ -51,24 +76,57 @@ brush_layers = [SubResource("MBrushLayers_dkrfj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 389.13, -318.435, -433.885)
 script = ExtResource("2_oi7lb")
 
+[node name="Rocks" type="MGrass" parent="MTerrain"]
+grass_data = ExtResource("4_ixu15")
+shape = ExtResource("4_m3bn2")
+lod_settings = [ExtResource("5_ixu15"), ExtResource("5_ixu15"), ExtResource("5_ixu15"), null, null, null]
+meshes = ExtResource("6_cs5l2")
+materials = [SubResource("MGrassLodSetting_cs5l2"), null, null, null, null, null]
+metadata/curve_terrain = {
+"active": true,
+"add": true,
+"offset": 9.0,
+"radius": 12.0
+}
+
 [node name="MGrass" type="MGrass" parent="MTerrain"]
-grass_data = ExtResource("4_o3kc3")
-lod_settings = [null, null, null, null, null, null]
+grass_data = ExtResource("8_qmdyh")
+lod_settings = [ExtResource("8_0hkpf"), ExtResource("8_0hkpf"), ExtResource("8_0hkpf"), null, null, null]
+meshes = SubResource("MMeshLod_eau7m")
 materials = [null, null, null, null, null, null]
+metadata/curve_terrain = {
+"active": true,
+"add": true,
+"offset": 4.0,
+"radius": 4.0
+}
+
+[node name="Tree" type="MGrass" parent="MTerrain"]
+grass_data = ExtResource("13_eau7m")
+shape = ExtResource("14_uu6w2")
+lod_settings = [ExtResource("15_kfdb0"), ExtResource("15_kfdb0"), ExtResource("15_kfdb0"), null, null, null]
+meshes = ExtResource("16_iedwy")
+materials = [null, null, null, null, null, null]
+metadata/curve_terrain = {
+"active": true,
+"add": true,
+"offset": 11.0,
+"radius": 12.0
+}
 
 [node name="MPath" type="MPath" parent="."]
 curve = ExtResource("3_w4vam")
 metadata/curve_terrain = {
-"auto_deform": false,
+"auto_deform": true,
 "auto_grass": false,
-"auto_paint": false,
+"auto_paint": true,
 "bgcolor": Color(0, 0, 0, 1),
 "dfalloff": 3.0,
 "doffset": 0.2,
 "donly_selected": false,
 "dradius": 5.0,
 "iname": "road",
-"panel_open": true,
+"panel_open": false,
 "pcolor": Color(1, 1, 1, 1),
 "pfalloff": 3.0,
 "ponly_selected": false,
@@ -79,4 +137,4 @@ metadata/curve_terrain = {
 }
 
 [node name="car" parent="." instance=ExtResource("4_luwdc")]
-transform = Transform3D(-0.989404, 0, 0.145185, 0, 1, 0, -0.145185, 0, -0.989404, 533.701, 23.8713, 527.681)
+transform = Transform3D(-0.989404, 0, 0.145185, 0, 1, 0, -0.145185, 0, -0.989404, 537.447, 23.8713, 527.681)

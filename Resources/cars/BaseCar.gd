@@ -40,12 +40,15 @@ var is_drifting: bool = false
 @onready var hud_rpm = $Hud/rpm
 @onready var engine_sound = $EngineSound
 @onready var tyre_sound = $TyreSound
-
+@onready var breaklight = $breaklight
+@onready var breaklight2 = $breaklight2
+@onready var breaklight_emm = $breaklight_emm
 # --- Wheel References ---
 @onready var front_left: VehicleWheel3D = $wheal1
 @onready var front_right: VehicleWheel3D = $wheal0
 @onready var rear_left: VehicleWheel3D = $wheal3
 @onready var rear_right: VehicleWheel3D = $wheal2
+
 
 var current_speed: float = 0.0
 var acceleration: float = 0.0
@@ -80,15 +83,27 @@ func _physics_process(delta: float) -> void:
 	
 	_update_gear(delta, throttle)
 	
+	var break_emission = breaklight_emm.get_surface_override_material(0)
 	# Use handbrake if active; otherwise apply gradual braking via ui_brake
 	if handbrake_active:
 		_handle_handbrake(delta)
-	else:
+		breaklight.visible = true
+		breaklight2.visible = true
+		break_emission.emission_enabled = true
+	elif brake_active:
 		_handle_braking(delta, brake_active)
-	
+		breaklight.visible=true
+		breaklight2.visible = true
+		break_emission.emission_enabled = true
+	else:
+		breaklight.visible = false
+		breaklight2.visible = false
+		break_emission.emission_enabled = false
+
 	# Only apply engine force when not handbraking
 	if not handbrake_active:
-		_apply_engine_force(delta, throttle)
+		if not brake_active:
+			_apply_engine_force(delta, throttle)
 	
 	_handle_steering(delta, turn_input)
 	

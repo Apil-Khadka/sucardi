@@ -1,0 +1,9 @@
+[gd_resource type="MMeshLod" load_steps=4 format=3 uid="uid://cxitq4dmfwo2h"]
+
+[ext_resource type="ArrayMesh" uid="uid://b5iow5sy0txqr" path="res://Resources/Models/Tree/Resource/tree_a.res" id="1_20lme"]
+[ext_resource type="ArrayMesh" uid="uid://cf16h7cfuuwwa" path="res://Resources/Models/Tree/Resource/tree_a_1.res" id="2_ce2mb"]
+[ext_resource type="ArrayMesh" uid="uid://bngn3gvq5tqlx" path="res://Resources/Models/Tree/Resource/tree_a_2.res" id="3_2bs22"]
+
+[resource]
+meshes = Array[Mesh]([ExtResource("1_20lme"), ExtResource("2_ce2mb"), ExtResource("3_2bs22")])
+lod_count = 3

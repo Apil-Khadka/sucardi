@@ -1,0 +1,11 @@
+[gd_resource type="MGrassLodSetting" format=3 uid="uid://dql2vmlsai7ow"]
+
+[resource]
+cell_instance_count = 8
+offset = Vector3(0, 0.15, 0)
+rot_offset = Vector3(90, 0, 0)
+rand_rot_end = Vector3(0, 360, 0)
+uniform_rand_scale_start = 0.5
+uniform_rand_scale_end = 0.6
+rand_scale_start = Vector3(0.5, 0.5, 0.5)
+rand_scale_end = Vector3(0.6, 0.6, 0.6)
