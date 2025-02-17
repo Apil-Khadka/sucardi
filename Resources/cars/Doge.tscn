@@ -86,6 +86,13 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 50
 
+[node name="Label" parent="Hud" index="2"]
+text = "Arow keys -> drive
+Space -> break
+shift -> handbreak
+H -> headlight
+"
+
 [node name="doge-body" parent="." index="7" instance=ExtResource("3_om8jj")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
@@ -137,3 +144,22 @@ surface_material_override/0 = ExtResource("6_coxw7")
 transform = Transform3D(0.133289, 0, 0, 0, -0.0218552, 0.0785425, 0, -0.0747487, -0.0229644, 0.561255, 0.697213, 2.28543)
 mesh = SubResource("BoxMesh_coxw7")
 surface_material_override/0 = ExtResource("6_coxw7")
+
+[node name="headlight" type="SpotLight3D" parent="." index="17"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.641754, 0.641754, -2.27244)
+visible = false
+light_energy = 3.507
+spot_range = 8.243
+spot_attenuation = 0.67
+spot_angle = 71.07
+
+[node name="headlight2" type="SpotLight3D" parent="." index="18"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.657676, 0.641754, -2.27244)
+visible = false
+light_energy = 3.769
+light_indirect_energy = 1.699
+light_specular = 0.675
+spot_range = 8.825
+spot_attenuation = -0.69
+spot_angle = 71.07
+spot_angle_attenuation = 1.27456

@@ -43,15 +43,23 @@ var is_drifting: bool = false
 @onready var breaklight = $breaklight
 @onready var breaklight2 = $breaklight2
 @onready var breaklight_emm = $breaklight_emm
+@onready var headlight = $headlight
+@onready var headlight2 = $headlight2
+
 # --- Wheel References ---
 @onready var front_left: VehicleWheel3D = $wheal1
 @onready var front_right: VehicleWheel3D = $wheal0
 @onready var rear_left: VehicleWheel3D = $wheal3
 @onready var rear_right: VehicleWheel3D = $wheal2
 
-
 var current_speed: float = 0.0
 var acceleration: float = 0.0
+
+# Custom braking variable (to avoid conflict with the built-in "brake" property)
+var brake_value: float = 0.0
+
+var headlight_active: bool = false  # Store state
+
 
 func _ready():
 	setup_wheels()
@@ -76,34 +84,55 @@ func _physics_process(delta: float) -> void:
 	hud_speed.text = "%d KMPH" % round(current_speed)
 	
 	# Process input
+	# Note: Using "ui_down" minus "ui_up" to determine throttle.
 	var throttle: float = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	var turn_input: float = Input.get_action_strength("ui_left") - Input.get_action_strength("ui_right")
 	var brake_active: bool = Input.is_action_pressed("ui_brake")
 	var handbrake_active: bool = Input.is_action_pressed("handbrake")
 	
+	if Input.is_action_just_pressed("headlight"):
+		headlight_active = !headlight_active
+	
+	if headlight_active:
+		headlight.visible = true
+		headlight2.visible = true
+	else:
+		headlight.visible = false
+		headlight2.visible = false
+	
+	
+	# If brake or handbrake is active, override throttle to 0.
+	if brake_active or handbrake_active:
+		throttle = 0.0
+	
 	_update_gear(delta, throttle)
 	
+	# Get the emissive material for brake lights.
 	var break_emission = breaklight_emm.get_surface_override_material(0)
-	# Use handbrake if active; otherwise apply gradual braking via ui_brake
+	
+	# Handle braking input
 	if handbrake_active:
 		_handle_handbrake(delta)
+		# Also, force engine force to zero so acceleration doesn't counteract brakes.
+		self.engine_force = 0
 		breaklight.visible = true
 		breaklight2.visible = true
 		break_emission.emission_enabled = true
 	elif brake_active:
-		_handle_braking(delta, brake_active)
-		breaklight.visible=true
+		_handle_braking(delta, true)
+		self.engine_force = 0
+		breaklight.visible = true
 		breaklight2.visible = true
 		break_emission.emission_enabled = true
 	else:
 		breaklight.visible = false
 		breaklight2.visible = false
 		break_emission.emission_enabled = false
-
-	# Only apply engine force when not handbraking
-	if not handbrake_active:
-		if not brake_active:
-			_apply_engine_force(delta, throttle)
+		_handle_braking(delta, false)
+	
+	# Only apply engine force if no brake or handbrake is active.
+	if not handbrake_active and not brake_active:
+		_apply_engine_force(delta, throttle)
 	
 	_handle_steering(delta, turn_input)
 	
@@ -116,70 +145,66 @@ func _update_rpm(delta: float, throttle: float) -> void:
 	wheel_rpm = (abs(front_left.get_rpm()) + abs(front_right.get_rpm())) / 2.0
 	
 	if linear_velocity.length() < 0.5:
-		# When nearly stationary (e.g., against a wall), simulate the engine revving with throttle.
 		current_rpm = lerp(current_rpm, engine_idle_rpm + (engine_max_rpm - engine_idle_rpm) * throttle, delta * 5.0)
 	elif gear > 0:
-		# Calculate RPM based on wheel speed and gear ratio
 		current_rpm = abs(wheel_rpm) * gear_ratios[gear - 1] * final_drive_ratio
 	elif gear == -1:
 		current_rpm = abs(wheel_rpm) * reverse_ratio * final_drive_ratio
 	else:
-		# Neutral: gentle ramp up toward idle
 		current_rpm = lerp(current_rpm, engine_idle_rpm, delta * 2.0)
 	
 	current_rpm = clamp(current_rpm, engine_idle_rpm, engine_max_rpm)
 
 func calculate_torque() -> float:
-	# Simulate a simple torque curve with peak torque around 70% of max RPM
 	var rpm_normalized = (current_rpm - engine_idle_rpm) / (engine_max_rpm - engine_idle_rpm)
 	var torque_curve = 1.0 - abs(rpm_normalized - 0.7)
 	return engine_max_torque * clamp(torque_curve, 0.5, 1.0)
 
 func _apply_engine_force(delta: float, throttle: float) -> void:
-	# If any brake is applied, skip engine force application
-	if brake > 0:
+	# Do not apply engine force if brakes are active.
+	if brake_value > 0:
 		return
 	
 	var torque: float = calculate_torque()
+	var engine_force_val: float = 0.0
 	if gear == -1:
-		engine_force = throttle * torque * reverse_ratio * final_drive_ratio
+		engine_force_val = throttle * torque * reverse_ratio * final_drive_ratio
 	elif gear > 0:
-		engine_force = throttle * torque * gear_ratios[gear - 1] * final_drive_ratio
+		engine_force_val = throttle * torque * gear_ratios[gear - 1] * final_drive_ratio
 	else:
-		engine_force = 0.0
+		engine_force_val = 0.0
 	
-	# Smooth acceleration using interpolation
+	# Smooth acceleration.
 	var target_acceleration = engine_force_value * throttle
 	acceleration = move_toward(acceleration, target_acceleration, acceleration_rate * delta)
-	engine_force = acceleration
+	engine_force_val = acceleration
 	
-	# Set the engine force for the vehicle (a built-in property)
-	self.engine_force = engine_force
+	# Set the vehicle’s engine force.
+	self.engine_force = engine_force_val
 
 func _handle_braking(delta: float, brake_active: bool) -> void:
 	if brake_active:
-		# For ui_brake: apply a moderate, gradually increasing braking force to all wheels.
-		var target_brake = breaking_force * 0.5  # Adjust multiplier for desired deceleration
-		# Here we use one wheel’s current brake value as reference.
+		# Gradually increase braking force.
+		var target_brake = breaking_force * 0.5  # Adjust multiplier as needed.
 		var current_brake = move_toward(front_left.brake, target_brake, deceleration_rate * delta)
 		for wheel in [front_left, front_right, rear_left, rear_right]:
 			wheel.brake = current_brake
-		# Reduce engine acceleration during braking
+		# Smoothly reduce engine acceleration.
 		acceleration = move_toward(acceleration, 0.0, deceleration_rate * delta)
-		brake = current_brake
+		brake_value = current_brake
 	else:
+		# Reset braking.
 		for wheel in [front_left, front_right, rear_left, rear_right]:
 			wheel.brake = 0.0
-		brake = 0.0
+		brake_value = 0.0
 
 func _handle_handbrake(delta: float) -> void:
-	# For a real-car feel, the handbrake applies a strong, immediate braking force to the rear wheels.
+	# Apply a strong braking force to rear wheels.
 	for wheel in [rear_left, rear_right]:
 		wheel.brake = handbrake_force
-	# Optionally clear braking from the front wheels to emphasize oversteer/drift.
+	# Optionally clear braking on front wheels.
 	for wheel in [front_left, front_right]:
 		wheel.brake = 0.0
-	# You might also want to reduce engine force to simulate a locked rear end.
 	acceleration = 0.0
 
 func _handle_steering(delta: float, turn_input: float) -> void:
@@ -197,11 +222,9 @@ func _update_gear(delta: float, throttle: float) -> void:
 		shift_timer -= delta
 		if shift_timer <= 0:
 			is_shifting = false
-			# Simulate a brief rpm drop when a gear shift completes
 			current_rpm = engine_idle_rpm + 0.2 * (current_rpm - engine_idle_rpm)
 		return
 	
-	# RPM-based gear shifting logic with a brief delay
 	if gear > 0:
 		if current_rpm > engine_max_rpm * 0.8 and gear < gear_ratios.size():
 			gear += 1
@@ -212,20 +235,17 @@ func _update_gear(delta: float, throttle: float) -> void:
 			is_shifting = true
 			shift_timer = shifting_time
 	elif gear == 0:
-		# In neutral, shift into first gear if throttle is applied and car is nearly stationary.
 		if abs(throttle) > 0.1 and current_speed < 5:
 			gear = 1
 			is_shifting = true
 			shift_timer = shifting_time
 	
-	# Engage reverse gear if negative throttle is applied while stationary.
 	if throttle < -0.1 and current_speed < 5:
 		gear = -1
 		is_shifting = true
 		shift_timer = shifting_time
 
 func _update_sounds() -> void:
-	# Update engine and tire sounds based on current parameters.
 	engine_sound.update_engine_sound(current_speed, current_rpm, gear)
 	var slip = (rear_left.get_skidinfo() + rear_right.get_skidinfo()) / 2.0
-	tyre_sound.update_tire_sound(slip, is_drifting or (brake > 0))
+	tyre_sound.update_tire_sound(slip, is_drifting or (brake_value > 0))

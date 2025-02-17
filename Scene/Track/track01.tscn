@@ -1,8 +1,9 @@
-[gd_scene load_steps=25 format=3 uid="uid://dynikglcr51lu"]
+[gd_scene load_steps=26 format=3 uid="uid://dynikglcr51lu"]
 
 [ext_resource type="MTerrainMaterial" uid="uid://dohg8xfhrdws0" path="res://Scene/material/track01.tres" id="1_dkrfj"]
 [ext_resource type="Script" uid="uid://by0pmq43jr2uv" path="res://Scene/Track/track_01.gd" id="1_o3kc3"]
 [ext_resource type="Script" uid="uid://elwrpl87s4l" path="res://Scene/Track/m_terrain.gd" id="2_oi7lb"]
+[ext_resource type="Texture2D" uid="uid://cr7x1k4j7voyd" path="res://Resources/hdri/rogland_clear_night_4k.exr" id="2_uu6w2"]
 [ext_resource type="MCurve" uid="uid://sb4m8qbnihie" path="res://Scene/curves/track01.res" id="3_w4vam"]
 [ext_resource type="MGrassData" uid="uid://dp76d17j4xer1" path="res://Scene/Track/track01_big_rock_data.res" id="4_ixu15"]
 [ext_resource type="PackedScene" uid="uid://ci52bv1m15cbs" path="res://Resources/cars/Doge.tscn" id="4_luwdc"]
@@ -19,20 +20,24 @@
 [ext_resource type="MGrassLodSetting" uid="uid://1ahrx0jcnm8j" path="res://Resources/Models/Tree/Load Setting/birch_tree_0_load.res" id="15_kfdb0"]
 [ext_resource type="MMeshLod" uid="uid://cxitq4dmfwo2h" path="res://Resources/Models/Tree/Load Setting/birch_tree_mesh_lod.tres" id="16_iedwy"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o3kc3"]
-sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
-ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
-energy_multiplier = 0.7
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_kfdb0"]
+panorama = ExtResource("2_uu6w2")
 
 [sub_resource type="Sky" id="Sky_ef81c"]
-sky_material = SubResource("ProceduralSkyMaterial_o3kc3")
+sky_material = SubResource("PanoramaSkyMaterial_kfdb0")
 
 [sub_resource type="Environment" id="Environment_m3bn2"]
 background_mode = 2
 sky = SubResource("Sky_ef81c")
+tonemap_mode = 3
+ssr_enabled = true
+ssao_enabled = true
 glow_enabled = true
 glow_strength = 1.21
-volumetric_fog_density = 0.0
+fog_enabled = true
+fog_sky_affect = 0.27
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0168
 
 [sub_resource type="MBrushLayers" id="MBrushLayers_dkrfj"]
 layers_title = "road"
@@ -62,13 +67,15 @@ environment = SubResource("Environment_m3bn2")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.218401, 0.449779, 0, 0.899558, 0.436802, -0.5, 0.378281, -0.77904, 0, 0, 0)
-light_energy = 0.7
+light_energy = 0.389
+light_volumetric_fog_energy = 2.2
 shadow_enabled = true
 directional_shadow_max_distance = 571.0
 
 [node name="MTerrain" type="MTerrain" parent="."]
 dataDir = "res://Resources/WorldMap"
 layersDataDir = "res://Resources/WorldMap/layers"
+create = true
 terrain_material = ExtResource("1_dkrfj")
 heightmap_layers = PackedStringArray("background", "road")
 terrain_quad_count = Vector2i(32, 32)
@@ -126,7 +133,7 @@ metadata/curve_terrain = {
 "donly_selected": false,
 "dradius": 5.0,
 "iname": "road",
-"panel_open": false,
+"panel_open": true,
 "pcolor": Color(1, 1, 1, 1),
 "pfalloff": 3.0,
 "ponly_selected": false,

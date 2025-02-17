@@ -1,36 +1,3 @@
-[remap]
-
-importer="texture"
-type="CompressedTexture2D"
-uid="uid://c3tmtugjyyxa8"
-path.s3tc="res://.godot/imported/stone_small_b_ao.png-56d9bd6c712d712058c79dfb0709a52d.s3tc.ctex"
-path.etc2="res://.godot/imported/stone_small_b_ao.png-56d9bd6c712d712058c79dfb0709a52d.etc2.ctex"
-metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
-}
-
-[deps]
-
-source_file="res://Resources/Models/Rock/Texture/stone_small_b_ao.png"
-dest_files=["res://.godot/imported/stone_small_b_ao.png-56d9bd6c712d712058c79dfb0709a52d.s3tc.ctex", "res://.godot/imported/stone_small_b_ao.png-56d9bd6c712d712058c79dfb0709a52d.etc2.ctex"]
-
-[params]
-
-compress/mode=2
-compress/high_quality=false
-compress/lossy_quality=0.7
-compress/hdr_compression=1
-compress/normal_map=0
-compress/channel_pack=0
-mipmaps/generate=true
-mipmaps/limit=-1
-roughness/mode=8
-roughness/src_normal="res://Datas/Models/Rock/Texture/stone_small_b_normal.png"
-process/fix_alpha_border=true
-process/premult_alpha=false
-process/normal_map_invert_y=false
-process/hdr_as_srgb=false
-process/hdr_clamp_exposure=false
-process/size_limit=0
-detect_3d/compress_to=0
+version https://git-lfs.github.com/spec/v1
+oid sha256:a323a7527fd105f6889bb17e40605980a2772d32841ef4c533c3442a40665c30
+size 1116

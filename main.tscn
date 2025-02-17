@@ -1,16 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bs4xdyx3mglt2"]
+[gd_scene load_steps=9 format=3 uid="uid://bs4xdyx3mglt2"]
 
-[ext_resource type="Texture2D" uid="uid://d07jhci4457bt" path="res://addons/plenticons/icons/16x/2d/spark-full-black.png" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://csogbbvwmmp44" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="AudioStream" uid="uid://da8vvbojbl515" path="res://Resources/Sound/UI/ui_sound.ogg" id="1_ig7tw"]
-
-[sub_resource type="InputEventKey" id="InputEventKey_h2yge"]
-device = -1
-keycode = 77
-unicode = 109
-
-[sub_resource type="Shortcut" id="Shortcut_1bvp3"]
-events = [SubResource("InputEventKey_h2yge")]
+[ext_resource type="Texture2D" uid="uid://v5txhyjqwltp" path="res://addons/plenticons/icons/64x-hidpi/2d/hexagon-gray.png" id="3_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://c3gu773gntjeb" path="res://addons/plenticons/icons/64x-hidpi/2d/diamond-black.png" id="4_lquwl"]
 
 [sub_resource type="Gradient" id="Gradient_7dm0k"]
 offsets = PackedFloat32Array(0, 0.511749, 0.941253)
@@ -20,6 +13,14 @@ metadata/_snap_count = 4
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ig7tw"]
 gradient = SubResource("Gradient_7dm0k")
 repeat = 2
+
+[sub_resource type="InputEventKey" id="InputEventKey_h2yge"]
+device = -1
+keycode = 77
+unicode = 109
+
+[sub_resource type="Shortcut" id="Shortcut_1bvp3"]
+events = [SubResource("InputEventKey_h2yge")]
 
 [node name="main" type="Control"]
 layout_mode = 3
@@ -33,20 +34,6 @@ script = ExtResource("1_h2yge")
 [node name="view" type="Camera2D" parent="."]
 position = Vector2(957, 547)
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
-layout_mode = 0
-offset_right = 1923.0
-offset_bottom = 1080.0
-
-[node name="musicButton" type="CheckButton" parent="AspectRatioContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-button_pressed = true
-shortcut = SubResource("Shortcut_1bvp3")
-text = "Music"
-icon = ExtResource("1_0xm2m")
-
 [node name="background" type="TextureRect" parent="."]
 show_behind_parent = true
 layout_mode = 2
@@ -59,4 +46,34 @@ texture = SubResource("GradientTexture2D_ig7tw")
 stream = ExtResource("1_ig7tw")
 autoplay = true
 
-[connection signal="pressed" from="AspectRatioContainer/musicButton" to="." method="_on_music_button_pressed"]
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.470313
+anchor_top = 0.481481
+anchor_right = 0.529688
+anchor_bottom = 0.518519
+offset_right = -6.10352e-05
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="playButton" type="Button" parent="GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Play"
+icon = ExtResource("3_1bvp3")
+flat = true
+
+[node name="musicButton" type="CheckButton" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 100
+button_pressed = true
+shortcut = SubResource("Shortcut_1bvp3")
+text = "Music"
+icon = ExtResource("4_lquwl")
+
+[connection signal="pressed" from="GridContainer/playButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="GridContainer/musicButton" to="." method="_on_music_button_pressed"]
