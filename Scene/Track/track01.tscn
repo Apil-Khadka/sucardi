@@ -75,7 +75,6 @@ directional_shadow_max_distance = 571.0
 [node name="MTerrain" type="MTerrain" parent="."]
 dataDir = "res://Resources/WorldMap"
 layersDataDir = "res://Resources/WorldMap/layers"
-create = true
 terrain_material = ExtResource("1_dkrfj")
 heightmap_layers = PackedStringArray("background")
 terrain_quad_count = Vector2i(32, 32)

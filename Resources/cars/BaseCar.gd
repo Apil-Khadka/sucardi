@@ -38,6 +38,7 @@ var is_drifting: bool = false
 # --- HUD & Audio ---
 @onready var hud_speed = $Hud/speed
 @onready var hud_rpm = $Hud/rpm
+@onready var pauseButton = $Hud/pauseButton
 @onready var engine_sound = $EngineSound
 @onready var tyre_sound = $TyreSound
 @onready var breaklight = $breaklight
@@ -63,6 +64,7 @@ var headlight_active: bool = false  # Store state
 
 func _ready():
 	setup_wheels()
+	pauseButton.get_popup().connect("id_pressed", Callable(self, "_on_MenuButton_id_pressed"))
 
 func setup_wheels():
 	# Configure wheel properties for realistic handling
@@ -249,3 +251,19 @@ func _update_sounds() -> void:
 	engine_sound.update_engine_sound(current_speed, current_rpm, gear)
 	var slip = (rear_left.get_skidinfo() + rear_right.get_skidinfo()) / 2.0
 	tyre_sound.update_tire_sound(slip, is_drifting or (brake_value > 0))
+
+
+func _on_pause_button_pressed() -> void:
+	get_tree().paused=true
+	pauseButton.get_popup().popup_centered()
+
+func _on_MenuButton_id_pressed(id: int) -> void:
+	match id:
+		0:  # Continue option
+			get_tree().paused = false
+		1:  # Restart option
+			get_tree().paused = false
+			get_tree().reload_current_scene()
+		2:
+			get_tree().paused = false
+			get_tree().change_scene_to_file("res://main.tscn")

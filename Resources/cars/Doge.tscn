@@ -1,11 +1,22 @@
-[gd_scene load_steps=11 format=3 uid="uid://ci52bv1m15cbs"]
+[gd_scene load_steps=17 format=3 uid="uid://ci52bv1m15cbs"]
 
 [ext_resource type="PackedScene" uid="uid://duy0dbkychify" path="res://Resources/cars/BaseCar.tscn" id="1_cfkas"]
 [ext_resource type="PackedScene" uid="uid://benmjny2guowm" path="res://Resources/cars/Models/Doge/Wheel.glb" id="2_eoiid"]
+[ext_resource type="Texture2D" uid="uid://chxmhbclwgapf" path="res://addons/plenticons/icons/64x-hidpi/2d/dotspark-3-black.png" id="3_0numg"]
 [ext_resource type="PackedScene" uid="uid://bty2rpvw2dh0h" path="res://Resources/cars/Models/Doge/doge-body.glb" id="3_om8jj"]
 [ext_resource type="PackedScene" uid="uid://by3n7h64aiykk" path="res://Scene/Sound/Engine/engine_sound.tscn" id="4_vipri"]
+[ext_resource type="Texture2D" uid="uid://ue3nqlrer2yk" path="res://addons/plenticons/icons/64x-hidpi/2d/checkmark-red.png" id="4_wp45g"]
 [ext_resource type="PackedScene" uid="uid://u832wcqsbrag" path="res://Scene/Sound/Tyre/tyre_sound.tscn" id="5_coxw7"]
+[ext_resource type="Texture2D" uid="uid://6qc6kalrf4eg" path="res://addons/plenticons/icons/64x-hidpi/2d/cross-red.png" id="5_vrcrk"]
 [ext_resource type="Material" uid="uid://xfw8twekldbc" path="res://Resources/cars/break_light_material.res" id="6_coxw7"]
+[ext_resource type="Texture2D" uid="uid://2wvc4iysx7lv" path="res://addons/plenticons/icons/64x-hidpi/2d/diamond-yellow.png" id="6_vrcrk"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_0numg"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_mc6fc"]
+events = [SubResource("InputEventKey_0numg")]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n7qdn"]
 radius = 0.291194
@@ -87,11 +98,37 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 50
 
 [node name="Label" parent="Hud" index="2"]
-text = "Arow keys -> drive
+text = "Esc -> pause
+Arow keys -> drive
 Space -> break
 shift -> handbreak
 H -> headlight
 "
+
+[node name="pauseButton" type="MenuButton" parent="Hud" index="3"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -4.0
+offset_right = 4.0
+offset_bottom = 8.0
+grow_horizontal = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 50
+shortcut = SubResource("Shortcut_mc6fc")
+text = "⏸️"
+icon = ExtResource("3_0numg")
+item_count = 3
+popup/item_0/text = "Continue"
+popup/item_0/icon = ExtResource("4_wp45g")
+popup/item_0/id = 0
+popup/item_1/text = "Restart"
+popup/item_1/icon = ExtResource("5_vrcrk")
+popup/item_1/id = 1
+popup/item_2/text = "Go to Menu"
+popup/item_2/icon = ExtResource("6_vrcrk")
+popup/item_2/id = 2
 
 [node name="doge-body" parent="." index="7" instance=ExtResource("3_om8jj")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -163,3 +200,5 @@ spot_range = 8.825
 spot_attenuation = -0.69
 spot_angle = 71.07
 spot_angle_attenuation = 1.27456
+
+[connection signal="pressed" from="Hud/pauseButton" to="." method="_on_pause_button_pressed"]
