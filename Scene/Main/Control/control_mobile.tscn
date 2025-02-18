@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://jalm42k4dwli"]
+
+[ext_resource type="Texture2D" uid="uid://b0rcc2epapnjd" path="res://Resources/mobile controls/assets/arrow.png" id="1_mijm7"]
+[ext_resource type="Script" uid="uid://dlwcjmimirffb" path="res://Resources/mobile controls/mobile_ctrls.gd" id="1_x7rpj"]
+[ext_resource type="Texture2D" uid="uid://3waiahkign4m" path="res://Resources/mobile controls/assets/gas.png" id="2_7271x"]
+[ext_resource type="Texture2D" uid="uid://dt2kethnrto6" path="res://Resources/mobile controls/assets/brake.png" id="4_aob85"]
+[ext_resource type="Texture2D" uid="uid://cv8rsjlkkth1a" path="res://Resources/mobile controls/assets/hb.png" id="5_lqr8o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dgne3"]
+size = Vector2(131.505, 120.055)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7271x"]
+size = Vector2(134.69, 178.435)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x7rpj"]
+size = Vector2(200.125, 126.055)
+
+[node name="ControlMobile" type="Node2D"]
+script = ExtResource("1_x7rpj")
+
+[node name="Left" type="TouchScreenButton" parent="."]
+position = Vector2(54, 813)
+texture_normal = ExtResource("1_mijm7")
+shape = SubResource("RectangleShape2D_dgne3")
+action = "ui_left"
+
+[node name="Gas" type="TouchScreenButton" parent="."]
+position = Vector2(1613, 755)
+texture_normal = ExtResource("2_7271x")
+shape = SubResource("RectangleShape2D_7271x")
+action = "ui_up"
+
+[node name="Brake" type="TouchScreenButton" parent="."]
+position = Vector2(1393, 776)
+texture_normal = ExtResource("4_aob85")
+shape = SubResource("RectangleShape2D_x7rpj")
+action = "ui_brake"
+
+[node name="handbrake" type="TouchScreenButton" parent="."]
+position = Vector2(1605, 474)
+texture_normal = ExtResource("5_lqr8o")
+shape = SubResource("RectangleShape2D_dgne3")
+action = "ui_brake"
+
+[node name="Right" type="TouchScreenButton" parent="."]
+position = Vector2(321, 938)
+rotation = 3.14159
+texture_normal = ExtResource("1_mijm7")
+shape = SubResource("RectangleShape2D_dgne3")
+action = "ui_right"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://ci52bv1m15cbs"]
+[gd_scene load_steps=21 format=3 uid="uid://ci52bv1m15cbs"]
 
 [ext_resource type="PackedScene" uid="uid://duy0dbkychify" path="res://Resources/cars/BaseCar.tscn" id="1_cfkas"]
 [ext_resource type="PackedScene" uid="uid://benmjny2guowm" path="res://Resources/cars/Models/Doge/Wheel.glb" id="2_eoiid"]
@@ -11,6 +11,7 @@
 [ext_resource type="Material" uid="uid://xfw8twekldbc" path="res://Resources/cars/break_light_material.res" id="6_coxw7"]
 [ext_resource type="Texture2D" uid="uid://2wvc4iysx7lv" path="res://addons/plenticons/icons/64x-hidpi/2d/diamond-yellow.png" id="6_vrcrk"]
 [ext_resource type="Texture2D" uid="uid://bv55rrtymfqoo" path="res://addons/plenticons/icons/64x-hidpi/2d/dotspark-green.png" id="7_5x227"]
+[ext_resource type="PackedScene" uid="uid://jalm42k4dwli" path="res://Scene/Main/Control/control_mobile.tscn" id="9_d5oox"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_0numg"]
 device = -1
@@ -18,6 +19,13 @@ keycode = 4194305
 
 [sub_resource type="Shortcut" id="Shortcut_mc6fc"]
 events = [SubResource("InputEventKey_0numg")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_crfvm"]
+device = -1
+keycode = 4194332
+
+[sub_resource type="Shortcut" id="Shortcut_d5oox"]
+events = [SubResource("InputEventKey_crfvm")]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n7qdn"]
 radius = 0.291194
@@ -139,6 +147,7 @@ popup/item_2/id = 2
 [node name="helpButton" type="MenuButton" parent="Hud" index="4"]
 offset_right = 8.0
 offset_bottom = 8.0
+shortcut = SubResource("Shortcut_d5oox")
 text = "Help"
 icon = ExtResource("7_5x227")
 item_count = 5
@@ -152,6 +161,8 @@ popup/item_3/text = "shift -> handbreak"
 popup/item_3/id = 3
 popup/item_4/text = "H -> headlight"
 popup/item_4/id = 4
+
+[node name="ControlMobile" parent="Hud" index="5" instance=ExtResource("9_d5oox")]
 
 [node name="doge-body" parent="." index="7" instance=ExtResource("3_om8jj")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)

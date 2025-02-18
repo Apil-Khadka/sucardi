@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dynikglcr51lu"]
+[gd_scene load_steps=26 format=3 uid="uid://dynikglcr51lu"]
 
 [ext_resource type="MTerrainMaterial" uid="uid://dohg8xfhrdws0" path="res://Scene/material/track01.tres" id="1_dkrfj"]
 [ext_resource type="Script" uid="uid://by0pmq43jr2uv" path="res://Scene/Track/track_01.gd" id="1_o3kc3"]
@@ -19,7 +19,6 @@
 [ext_resource type="Shape3D" uid="uid://b43t56ocvya6g" path="res://Resources/Models/Tree/shape/tree_a_cylinder.res" id="14_uu6w2"]
 [ext_resource type="MGrassLodSetting" uid="uid://1ahrx0jcnm8j" path="res://Resources/Models/Tree/Load Setting/birch_tree_0_load.res" id="15_kfdb0"]
 [ext_resource type="MMeshLod" uid="uid://cxitq4dmfwo2h" path="res://Resources/Models/Tree/Load Setting/birch_tree_mesh_lod.tres" id="16_iedwy"]
-[ext_resource type="PackedScene" uid="uid://rtwf8nuthddj" path="res://Scene/Main/Control/mobile_controls.tscn" id="20_kfdb0"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_kfdb0"]
 panorama = ExtResource("2_uu6w2")
@@ -35,9 +34,7 @@ ssr_enabled = true
 ssao_enabled = true
 glow_enabled = true
 glow_strength = 1.21
-fog_enabled = true
 fog_sky_affect = 0.27
-volumetric_fog_enabled = true
 volumetric_fog_density = 0.0168
 
 [sub_resource type="MBrushLayers" id="MBrushLayers_dkrfj"]
@@ -76,8 +73,10 @@ directional_shadow_max_distance = 571.0
 [node name="MTerrain" type="MTerrain" parent="."]
 dataDir = "res://Resources/WorldMap"
 layersDataDir = "res://Resources/WorldMap/layers"
+create = true
 terrain_material = ExtResource("1_dkrfj")
 heightmap_layers = PackedStringArray("background")
+regions_visible = 1
 terrain_quad_count = Vector2i(32, 32)
 brush_layers = [SubResource("MBrushLayers_dkrfj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 389.13, -318.435, -433.885)
@@ -145,5 +144,3 @@ metadata/curve_terrain = {
 
 [node name="car" parent="." instance=ExtResource("4_luwdc")]
 transform = Transform3D(-0.989404, 0, 0.145185, 0, 1, 0, -0.145185, 0, -0.989404, 537.447, 23.8713, 527.681)
-
-[node name="MobileControls" parent="." instance=ExtResource("20_kfdb0")]

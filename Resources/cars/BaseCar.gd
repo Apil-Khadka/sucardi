@@ -271,7 +271,7 @@ func _on_MenuButton_id_pressed(id: int) -> void:
 			get_tree().reload_current_scene()
 		2:
 			get_tree().paused = false
-			get_tree().change_scene_to_file("res://main.tscn")
+			get_tree().change_scene_to_file("res://Scene/Main/main.tscn")
 
 
 func _on_help_button_pressed() -> void:

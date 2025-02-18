@@ -35,6 +35,7 @@ scale = Vector2(1.47656, 1.33149)
 texture_normal = ExtResource("1_u8jrw")
 shape = SubResource("RectangleShape2D_2aboo")
 action = "ui_up"
+visibility_mode = 1
 script = ExtResource("2_f5ngk")
 
 [node name="brake" type="TouchScreenButton" parent="."]
@@ -44,6 +45,7 @@ scale = Vector2(0.857868, 1)
 texture_normal = ExtResource("3_52i8i")
 shape = SubResource("RectangleShape2D_d4net")
 action = "ui_brake"
+visibility_mode = 1
 script = ExtResource("2_f5ngk")
 
 [node name="left" type="TouchScreenButton" parent="."]
@@ -52,6 +54,7 @@ position = Vector2(54, 725)
 texture_normal = ExtResource("4_h84ym")
 shape = SubResource("RectangleShape2D_b85vj")
 action = "ui_left"
+visibility_mode = 1
 script = ExtResource("2_f5ngk")
 
 [node name="handbrake" type="TouchScreenButton" parent="."]
@@ -60,6 +63,7 @@ position = Vector2(1745, 587)
 texture_normal = ExtResource("5_kuj34")
 shape = SubResource("RectangleShape2D_pysp6")
 action = "handbrake"
+visibility_mode = 1
 script = ExtResource("2_f5ngk")
 
 [node name="right" type="TouchScreenButton" parent="."]
@@ -70,6 +74,7 @@ scale = Vector2(1, -1)
 texture_normal = ExtResource("4_h84ym")
 shape = SubResource("RectangleShape2D_b85vj")
 action = "ui_right"
+visibility_mode = 1
 script = ExtResource("2_f5ngk")
 
 [connection signal="pressed" from="gas" to="gas" method="press" binds= [true]]

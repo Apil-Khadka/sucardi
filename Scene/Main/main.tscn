@@ -27,6 +27,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 6.0
+offset_right = 6.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_h2yge")
@@ -40,6 +42,94 @@ layout_mode = 2
 offset_left = -3.0
 offset_right = 1922.0
 offset_bottom = 1080.0
+texture = SubResource("GradientTexture2D_ig7tw")
+
+[node name="background5" type="TextureRect" parent="."]
+show_behind_parent = true
+layout_mode = 2
+offset_left = -3.0
+offset_top = -1082.0
+offset_right = 1922.0
+offset_bottom = -2.0
+texture = SubResource("GradientTexture2D_ig7tw")
+
+[node name="background7" type="TextureRect" parent="."]
+show_behind_parent = true
+layout_mode = 2
+offset_left = 22.0
+offset_top = -9.00012
+offset_right = 1947.0
+offset_bottom = 1071.0
+rotation = 3.13848
+texture = SubResource("GradientTexture2D_ig7tw")
+
+[node name="background8" type="TextureRect" parent="."]
+show_behind_parent = true
+layout_mode = 2
+offset_left = 25.0
+offset_top = 1058.0
+offset_right = 1950.0
+offset_bottom = 2138.0
+rotation = 3.13848
+texture = SubResource("GradientTexture2D_ig7tw")
+
+[node name="background12" type="TextureRect" parent="."]
+show_behind_parent = true
+layout_mode = 2
+offset_left = 28.0
+offset_top = 2109.0
+offset_right = 1953.0
+offset_bottom = 3189.0
+rotation = 3.13848
+texture = SubResource("GradientTexture2D_ig7tw")
+
+[node name="background13" type="TextureRect" parent="."]
+show_behind_parent = true
+layout_mode = 2
+offset_left = 34.0
+offset_top = 2109.0
+offset_right = 1959.0
+offset_bottom = 3189.0
+rotation = 3.13848
+texture = SubResource("GradientTexture2D_ig7tw")
+
+[node name="background9" type="TextureRect" parent="."]
+show_behind_parent = true
+layout_mode = 2
+offset_left = 3839.0
+offset_top = 2158.0
+offset_right = 5764.0
+offset_bottom = 3238.0
+rotation = 3.13973
+texture = SubResource("GradientTexture2D_ig7tw")
+
+[node name="background10" type="TextureRect" parent="."]
+show_behind_parent = true
+layout_mode = 2
+offset_left = 3844.0
+offset_top = 1091.0
+offset_right = 5769.0
+offset_bottom = 2171.0
+rotation = 3.13973
+texture = SubResource("GradientTexture2D_ig7tw")
+
+[node name="background11" type="TextureRect" parent="."]
+show_behind_parent = true
+layout_mode = 2
+offset_left = 3828.0
+offset_top = 15.0
+offset_right = 5753.0
+offset_bottom = 1095.0
+rotation = 3.13973
+texture = SubResource("GradientTexture2D_ig7tw")
+
+[node name="background2" type="TextureRect" parent="."]
+show_behind_parent = true
+layout_mode = 2
+offset_left = 5.0
+offset_top = 1065.0
+offset_right = 1930.0
+offset_bottom = 2145.0
 texture = SubResource("GradientTexture2D_ig7tw")
 
 [node name="backgroundaudio" type="AudioStreamPlayer" parent="."]

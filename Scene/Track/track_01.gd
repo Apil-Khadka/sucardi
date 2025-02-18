@@ -2,7 +2,7 @@
 extends Node3D
 
 
-@onready var mobile_controls = $MobileControls
+@onready var mobile_controls = $car/Hud/ControlMobile
 func _ready():
 	if OS.get_name() == "Android":
 		mobile_controls.visible=true
