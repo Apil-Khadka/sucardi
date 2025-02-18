@@ -1,0 +1,84 @@
+[gd_scene load_steps=11 format=3 uid="uid://rtwf8nuthddj"]
+
+[ext_resource type="Script" uid="uid://dlwcjmimirffb" path="res://Resources/mobile controls/mobile_ctrls.gd" id="1_f5ngk"]
+[ext_resource type="Texture2D" uid="uid://3waiahkign4m" path="res://Resources/mobile controls/assets/gas.png" id="1_u8jrw"]
+[ext_resource type="Script" uid="uid://bavf3hbujeo0g" path="res://Resources/mobile controls/positioning.gd" id="2_f5ngk"]
+[ext_resource type="Texture2D" uid="uid://dt2kethnrto6" path="res://Resources/mobile controls/assets/brake.png" id="3_52i8i"]
+[ext_resource type="Texture2D" uid="uid://b0rcc2epapnjd" path="res://Resources/mobile controls/assets/arrow.png" id="4_h84ym"]
+[ext_resource type="Texture2D" uid="uid://cv8rsjlkkth1a" path="res://Resources/mobile controls/assets/hb.png" id="5_kuj34"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2aboo"]
+size = Vector2(140, 190)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d4net"]
+size = Vector2(200, 136)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b85vj"]
+size = Vector2(140, 140)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pysp6"]
+size = Vector2(140, 180)
+
+[node name="MobileControls" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_f5ngk")
+
+[node name="gas" type="TouchScreenButton" parent="."]
+modulate = Color(1, 1, 1, 0.5)
+position = Vector2(1677, 840)
+scale = Vector2(1.47656, 1.33149)
+texture_normal = ExtResource("1_u8jrw")
+shape = SubResource("RectangleShape2D_2aboo")
+action = "ui_up"
+script = ExtResource("2_f5ngk")
+
+[node name="brake" type="TouchScreenButton" parent="."]
+modulate = Color(1, 1, 1, 0.5)
+position = Vector2(1464, 943)
+scale = Vector2(0.857868, 1)
+texture_normal = ExtResource("3_52i8i")
+shape = SubResource("RectangleShape2D_d4net")
+action = "ui_brake"
+script = ExtResource("2_f5ngk")
+
+[node name="left" type="TouchScreenButton" parent="."]
+modulate = Color(1, 1, 1, 0.5)
+position = Vector2(54, 725)
+texture_normal = ExtResource("4_h84ym")
+shape = SubResource("RectangleShape2D_b85vj")
+action = "ui_left"
+script = ExtResource("2_f5ngk")
+
+[node name="handbrake" type="TouchScreenButton" parent="."]
+modulate = Color(1, 1, 1, 0.5)
+position = Vector2(1745, 587)
+texture_normal = ExtResource("5_kuj34")
+shape = SubResource("RectangleShape2D_pysp6")
+action = "handbrake"
+script = ExtResource("2_f5ngk")
+
+[node name="right" type="TouchScreenButton" parent="."]
+modulate = Color(1, 1, 1, 0.5)
+position = Vector2(326, 725)
+rotation = -3.14159
+scale = Vector2(1, -1)
+texture_normal = ExtResource("4_h84ym")
+shape = SubResource("RectangleShape2D_b85vj")
+action = "ui_right"
+script = ExtResource("2_f5ngk")
+
+[connection signal="pressed" from="gas" to="gas" method="press" binds= [true]]
+[connection signal="released" from="gas" to="gas" method="press" binds= [false]]
+[connection signal="pressed" from="brake" to="brake" method="press" binds= [true]]
+[connection signal="released" from="brake" to="brake" method="press" binds= [false]]
+[connection signal="pressed" from="left" to="left" method="press" binds= [true]]
+[connection signal="released" from="left" to="left" method="press" binds= [false]]
+[connection signal="pressed" from="handbrake" to="handbrake" method="press" binds= [true]]
+[connection signal="released" from="handbrake" to="handbrake" method="press" binds= [false]]
+[connection signal="pressed" from="right" to="right" method="press" binds= [true]]
+[connection signal="released" from="right" to="right" method="press" binds= [false]]

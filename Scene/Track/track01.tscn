@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dynikglcr51lu"]
+[gd_scene load_steps=27 format=3 uid="uid://dynikglcr51lu"]
 
 [ext_resource type="MTerrainMaterial" uid="uid://dohg8xfhrdws0" path="res://Scene/material/track01.tres" id="1_dkrfj"]
 [ext_resource type="Script" uid="uid://by0pmq43jr2uv" path="res://Scene/Track/track_01.gd" id="1_o3kc3"]
@@ -19,6 +19,7 @@
 [ext_resource type="Shape3D" uid="uid://b43t56ocvya6g" path="res://Resources/Models/Tree/shape/tree_a_cylinder.res" id="14_uu6w2"]
 [ext_resource type="MGrassLodSetting" uid="uid://1ahrx0jcnm8j" path="res://Resources/Models/Tree/Load Setting/birch_tree_0_load.res" id="15_kfdb0"]
 [ext_resource type="MMeshLod" uid="uid://cxitq4dmfwo2h" path="res://Resources/Models/Tree/Load Setting/birch_tree_mesh_lod.tres" id="16_iedwy"]
+[ext_resource type="PackedScene" uid="uid://rtwf8nuthddj" path="res://Scene/Main/Control/mobile_controls.tscn" id="20_kfdb0"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_kfdb0"]
 panorama = ExtResource("2_uu6w2")
@@ -124,7 +125,7 @@ metadata/curve_terrain = {
 curve = ExtResource("3_w4vam")
 metadata/curve_terrain = {
 "auto_deform": true,
-"auto_grass": false,
+"auto_grass": true,
 "auto_paint": true,
 "bgcolor": Color(0, 0, 0, 1),
 "dfalloff": 3.0,
@@ -132,7 +133,7 @@ metadata/curve_terrain = {
 "donly_selected": false,
 "dradius": 5.0,
 "iname": "road",
-"panel_open": true,
+"panel_open": false,
 "pcolor": Color(1, 1, 1, 1),
 "pfalloff": 3.0,
 "ponly_selected": false,
@@ -144,3 +145,5 @@ metadata/curve_terrain = {
 
 [node name="car" parent="." instance=ExtResource("4_luwdc")]
 transform = Transform3D(-0.989404, 0, 0.145185, 0, 1, 0, -0.145185, 0, -0.989404, 537.447, 23.8713, 527.681)
+
+[node name="MobileControls" parent="." instance=ExtResource("20_kfdb0")]

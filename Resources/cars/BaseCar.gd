@@ -39,6 +39,7 @@ var is_drifting: bool = false
 @onready var hud_speed = $Hud/speed
 @onready var hud_rpm = $Hud/rpm
 @onready var pauseButton = $Hud/pauseButton
+@onready var helpButton = $Hud/helpButton
 @onready var engine_sound = $EngineSound
 @onready var tyre_sound = $TyreSound
 @onready var breaklight = $breaklight
@@ -65,6 +66,7 @@ var headlight_active: bool = false  # Store state
 func _ready():
 	setup_wheels()
 	pauseButton.get_popup().connect("id_pressed", Callable(self, "_on_MenuButton_id_pressed"))
+	pauseButton.get_popup().connect("popup_hide", Callable(self, "_on_MenuButton_about_to_hide"))
 
 func setup_wheels():
 	# Configure wheel properties for realistic handling
@@ -200,7 +202,7 @@ func _handle_braking(delta: float, brake_active: bool) -> void:
 			wheel.brake = 0.0
 		brake_value = 0.0
 
-func _handle_handbrake(delta: float) -> void:
+func _handle_handbrake(_delta: float) -> void:
 	# Apply a strong braking force to rear wheels.
 	for wheel in [rear_left, rear_right]:
 		wheel.brake = handbrake_force
@@ -257,6 +259,9 @@ func _on_pause_button_pressed() -> void:
 	get_tree().paused=true
 	pauseButton.get_popup().popup_centered()
 
+func _on_MenuButton_about_to_hide() -> void:
+	get_tree().paused=false
+
 func _on_MenuButton_id_pressed(id: int) -> void:
 	match id:
 		0:  # Continue option
@@ -267,3 +272,7 @@ func _on_MenuButton_id_pressed(id: int) -> void:
 		2:
 			get_tree().paused = false
 			get_tree().change_scene_to_file("res://main.tscn")
+
+
+func _on_help_button_pressed() -> void:
+	helpButton.get_popup().popup_centered()

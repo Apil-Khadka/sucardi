@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://ci52bv1m15cbs"]
+[gd_scene load_steps=18 format=3 uid="uid://ci52bv1m15cbs"]
 
 [ext_resource type="PackedScene" uid="uid://duy0dbkychify" path="res://Resources/cars/BaseCar.tscn" id="1_cfkas"]
 [ext_resource type="PackedScene" uid="uid://benmjny2guowm" path="res://Resources/cars/Models/Doge/Wheel.glb" id="2_eoiid"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://6qc6kalrf4eg" path="res://addons/plenticons/icons/64x-hidpi/2d/cross-red.png" id="5_vrcrk"]
 [ext_resource type="Material" uid="uid://xfw8twekldbc" path="res://Resources/cars/break_light_material.res" id="6_coxw7"]
 [ext_resource type="Texture2D" uid="uid://2wvc4iysx7lv" path="res://addons/plenticons/icons/64x-hidpi/2d/diamond-yellow.png" id="6_vrcrk"]
+[ext_resource type="Texture2D" uid="uid://bv55rrtymfqoo" path="res://addons/plenticons/icons/64x-hidpi/2d/dotspark-green.png" id="7_5x227"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_0numg"]
 device = -1
@@ -83,27 +84,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0026385, 0.827398, 0.719927
 target_distance = 5
 speed = 10.0
 
+[node name="speed" parent="Hud" index="0"]
+offset_left = -30.0
+offset_top = -132.0
+offset_right = 55.0
+offset_bottom = -63.0
+
 [node name="rpm" type="Label" parent="Hud" index="1"]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 229.0
-offset_top = -227.0
-offset_right = 269.0
-offset_bottom = -158.0
+offset_left = -27.0
+offset_top = -78.0
+offset_right = 13.0
+offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 50
 
 [node name="Label" parent="Hud" index="2"]
-text = "Esc -> pause
-Arow keys -> drive
-Space -> break
-shift -> handbreak
-H -> headlight
-"
+offset_left = -493.0
+offset_top = 602.0
+offset_right = -210.0
+offset_bottom = 887.0
+text = ""
 
 [node name="pauseButton" type="MenuButton" parent="Hud" index="3"]
 anchors_preset = 5
@@ -117,7 +123,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 50
 shortcut = SubResource("Shortcut_mc6fc")
-text = "⏸️"
+text = "Pause"
 icon = ExtResource("3_0numg")
 item_count = 3
 popup/item_0/text = "Continue"
@@ -129,6 +135,23 @@ popup/item_1/id = 1
 popup/item_2/text = "Go to Menu"
 popup/item_2/icon = ExtResource("6_vrcrk")
 popup/item_2/id = 2
+
+[node name="helpButton" type="MenuButton" parent="Hud" index="4"]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Help"
+icon = ExtResource("7_5x227")
+item_count = 5
+popup/item_0/text = "Esc -> pause"
+popup/item_0/id = 0
+popup/item_1/text = "Arow keys -> drive"
+popup/item_1/id = 1
+popup/item_2/text = "Space -> break"
+popup/item_2/id = 2
+popup/item_3/text = "shift -> handbreak"
+popup/item_3/id = 3
+popup/item_4/text = "H -> headlight"
+popup/item_4/id = 4
 
 [node name="doge-body" parent="." index="7" instance=ExtResource("3_om8jj")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -202,3 +225,4 @@ spot_angle = 71.07
 spot_angle_attenuation = 1.27456
 
 [connection signal="pressed" from="Hud/pauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="Hud/helpButton" to="." method="_on_help_button_pressed"]
